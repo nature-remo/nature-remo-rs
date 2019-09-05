@@ -31,18 +31,15 @@ impl From<reqwest::Error> for APIError {
 }
 
 pub struct Client {
-  token: String,
+  token: Option<String>,
   base_url: Url,
   client: reqwest::Client,
 }
 
 impl Client {
-  pub fn new(token: Option<&str>) -> Self {
+  pub fn new(token: Option<String>) -> Self {
     Client {
-      token: match token {
-        Some(token) => token.to_string(),
-        None => "".to_string(),
-      },
+      token: token,
       base_url: Url::parse("https://api.nature.global").unwrap(),
       client: ClientBuilder::new().build().unwrap(),
     }
@@ -56,13 +53,17 @@ impl Client {
     self.get::<Vec<Device>>("/1/devices")
   }
 
+  pub fn get_appliances(&self) -> Result<Vec<Appliance>, APIError> {
+    self.get::<Vec<Appliance>>("/1/appliances")
+  }
+
   fn make_request(&self, path: &str) -> reqwest::RequestBuilder {
     let request_url = self.base_url.join(path).unwrap();
-    println!("{}", request_url);
-    self
-      .client
-      .get(request_url.as_str())
-      .header("Authorization", format!("Bearer {}", self.token))
+    let client = self.client.get(request_url.as_str());
+    match &self.token {
+      None => client,
+      Some(token) => client.header("Authorization", format!("Bearer {}", token)),
+    }
   }
 
   fn get<T>(&self, path: &str) -> Result<T, APIError>
