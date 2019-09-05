@@ -62,136 +62,136 @@ pub struct User {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DetectedAirconModel {
-  model: Model,
-  params: AirconSettings,
+  pub model: Model,
+  pub params: AirconSettings,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SensorValue {
-  temperature: i32,
-  humidity: i32,
-  illumination: i32,
+  pub temperature: i32,
+  pub humidity: i32,
+  pub illumination: i32,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Device {
-  id: String,
-  name: String,
-  temperature_offset: i32,
-  humidity_offset: i32,
-  created_at: String,
-  updated_at: String,
-  firmware_version: String,
+  pub id: String,
+  pub name: String,
+  pub temperature_offset: i32,
+  pub humidity_offset: i32,
+  pub created_at: String,
+  pub updated_at: String,
+  pub firmware_version: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-struct NewestEvents {
-  te: EventValue,
-  hu: EventValue,
-  il: EventValue,
+pub struct NewestEvents {
+  pub te: EventValue,
+  pub hu: EventValue,
+  pub il: EventValue,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DeviceWithEvents {
-  id: String,
-  name: String,
-  temperature_offset: i32,
-  humidity_offset: i32,
-  created_at: String,
-  updated_at: String,
-  firmware_version: String,
-  newest_events: NewestEvents,
+  pub id: String,
+  pub name: String,
+  pub temperature_offset: i32,
+  pub humidity_offset: i32,
+  pub created_at: String,
+  pub updated_at: String,
+  pub firmware_version: String,
+  pub newest_events: NewestEvents,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EventValue {
-  val: i32,
-  created_at: String,
+  pub val: i32,
+  pub created_at: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Model {
-  id: String,
-  manufacturer: String,
-  remote_name: String,
-  name: String,
-  image: String,
+  pub id: String,
+  pub manufacturer: String,
+  pub remote_name: String,
+  pub name: String,
+  pub image: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AirconSettings {
-  temp: String,
-  mode: AirconModeType,
-  vol: String,
-  dir: String,
-  button: String,
+  pub temp: String,
+  pub mode: AirconModeType,
+  pub vol: String,
+  pub dir: String,
+  pub button: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UpdateAirconSettingsResponse {
-  temp: String,
-  mode: AirconModeType,
-  vol: String,
-  dir: String,
-  button: String,
-  updated_at: String,
+  pub temp: String,
+  pub mode: AirconModeType,
+  pub vol: String,
+  pub dir: String,
+  pub button: String,
+  pub updated_at: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AirconModeValue {
-  temp: Vec<String>,
-  dir: Vec<String>,
-  vol: Vec<String>,
+  pub temp: Vec<String>,
+  pub dir: Vec<String>,
+  pub vol: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AirconModes {
-  cool: AirconModeValue,
-  warm: AirconModeValue,
-  dry: AirconModeValue,
-  blow: AirconModeValue,
-  auto: AirconModeValue,
+  pub cool: AirconModeValue,
+  pub warm: AirconModeValue,
+  pub dry: AirconModeValue,
+  pub blow: AirconModeValue,
+  pub auto: AirconModeValue,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct AirconRange {
-  modes: AirconModes,
+  pub modes: AirconModes,
   #[serde(rename = "fixedButtons")]
-  fixed_buttons: Vec<String>,
+  pub fixed_buttons: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Aircon {
-  range: AirconRange,
+  pub range: AirconRange,
   #[serde(rename = "tempUnit")]
-  temp_unit: TemperatureUnit,
+  pub temp_unit: TemperatureUnit,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Signal {
-  id: String,
-  name: String,
-  image: String,
+  pub id: String,
+  pub name: String,
+  pub image: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Appliance {
-  id: String,
-  device: Device,
-  model: Model,
-  nickname: String,
-  image: String,
-  r#type: String,
-  settings: AirconSettings,
-  aircon: Option<Aircon>,
-  signals: Vec<Signal>,
+  pub id: String,
+  pub device: Device,
+  pub model: Model,
+  pub nickname: String,
+  pub image: String,
+  pub r#type: String,
+  pub settings: AirconSettings,
+  pub aircon: Option<Aircon>,
+  pub signals: Vec<Signal>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SignalMessage {
-  data: Vec<i32>,
-  freq: i32,
-  format: String,
+  pub data: Vec<i32>,
+  pub freq: i32,
+  pub format: String,
 }
 
 pub type RequestBody = HashMap<String, String>;

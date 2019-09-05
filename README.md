@@ -15,8 +15,11 @@ cargo add nature-remo
 ```rust
 extern crate nature_remo;
 
+use nature_remo::cloud;
+
 fn main() {
-  let client = nature_remo::Cloud::new("<token>");
-  let user = client.get_user();
+  let client = cloud::Client::new("<token>");
+  let user = client.get_user()?
+  println!("Name: {}", user.nickname)
 }
 ```
