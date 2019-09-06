@@ -1,34 +1,20 @@
-extern crate failure;
 extern crate reqwest;
 extern crate serde;
 extern crate serde_json;
 extern crate url;
 
-mod interfaces;
+mod appliance;
+mod device;
+mod error;
+mod user;
 
-use failure::Fail;
-pub use interfaces::*;
+pub use error::APIError;
 use reqwest::ClientBuilder;
 use serde::de::DeserializeOwned;
+use std::collections::HashMap;
 use url::Url;
 
-#[derive(Debug, Fail)]
-pub enum APIError {
-  #[fail(display = "Error: {:?}", error)]
-  Error { error: String },
-
-  #[fail(display = "Authorization failed")]
-  AuthError,
-
-  #[fail(display = "Client error: {:?}", error)]
-  HTTPError { error: reqwest::Error },
-}
-
-impl From<reqwest::Error> for APIError {
-  fn from(error: reqwest::Error) -> Self {
-    APIError::HTTPError { error }
-  }
-}
+pub type RequestBody<'a> = HashMap<&'a str, &'a str>;
 
 pub struct Client {
   token: Option<String>,
@@ -44,30 +30,6 @@ impl Client {
       client: ClientBuilder::new().build().unwrap(),
     }
   }
-
-  pub fn get_user(&self) -> Result<User, APIError> {
-    self.get::<User>("/1/users/me")
-  }
-
-  pub fn get_devices(&self) -> Result<Vec<Device>, APIError> {
-    self.get::<Vec<Device>>("/1/devices")
-  }
-
-  pub fn get_appliances(&self) -> Result<Vec<Appliance>, APIError> {
-    self.get::<Vec<Appliance>>("/1/appliances")
-  }
-
-  pub fn update_aircon_settings(
-    &self,
-    aircon_id: &str,
-    body: &RequestBody,
-  ) -> Result<UpdateAirconSettingsResponse, APIError> {
-    self.post::<UpdateAirconSettingsResponse>(
-      &format!("/1/appliances/{}/aircon_settings", aircon_id),
-      body,
-    )
-  }
-
   fn get<T>(&self, path: &str) -> Result<T, APIError>
   where
     T: DeserializeOwned,
