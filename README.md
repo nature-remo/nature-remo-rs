@@ -7,15 +7,15 @@ This project is in heavily development state and not intended for production use
 ## Installation
 
 ```
-cargo add nature-remo
+cargo add remo
 ```
 
 ## Usage
 
 ```rust
-extern crate nature_remo;
+extern crate remo;
 
-use nature_remo::cloud;
+use remo::cloud;
 
 fn main() {
   let client = cloud::Client::new("<token>");

@@ -3,90 +3,35 @@ extern crate serde_json;
 
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use std::str::FromStr;
 
-mod string {
+mod optional_string {
+  use serde::de;
+  use serde::de::{Deserialize, Deserializer};
+  use serde::ser::{Serialize, Serializer};
   use std::fmt::Display;
   use std::str::FromStr;
 
-  use serde::{de, Deserialize, Deserializer, Serializer};
-
-  pub fn serialize<T, S>(value: &T, serializer: S) -> Result<S::Ok, S::Error>
+  pub fn serialize<T, S>(value: Option<&T>, serializer: S) -> Result<S::Ok, S::Error>
   where
     T: Display,
     S: Serializer,
   {
-    serializer.collect_str(value)
+    serializer.collect_str(value.unwrap())
   }
 
-  pub fn deserialize<'de, T, D>(deserializer: D) -> Result<T, D::Error>
+  pub fn deserialize<'de, T, D>(deserializer: D) -> Result<Option<T>, D::Error>
   where
     T: FromStr,
     T::Err: Display,
     D: Deserializer<'de>,
   {
-    String::deserialize(deserializer)?
-      .parse()
-      .map_err(de::Error::custom)
+    Ok(Some(
+      String::deserialize(deserializer)?
+        .parse()
+        .map_err(de::Error::custom)?,
+    ))
   }
 }
-
-#[derive(Debug, Serialize, Deserialize)]
-#[serde(tag = "type")]
-pub enum DeviceEventType {
-  #[serde(rename = "te")]
-  Temperature,
-  #[serde(rename = "hu")]
-  Humidity,
-  #[serde(rename = "il")]
-  Illumination,
-}
-
-// impl DeviceEventType {
-//   pub fn as_str(&self) -> &str {
-//     match self {
-//       &DeviceEventType::Temperature => "te",
-//       &DeviceEventType::Humidity => "hu",
-//       &DeviceEventType::Illumination => "il",
-//     }
-//   }
-// }
-
-// #[derive(Debug, Serialize, Deserialize)]
-// pub enum AirconModeType {
-//   Cool,
-//   Warm,
-//   Dry,
-//   Blow,
-//   Auto,
-// }
-
-// impl AirconModeType {
-//   pub fn as_str(&self) -> &str {
-//     match self {
-//       &AirconModeType::Cool => "cool",
-//       &AirconModeType::Warm => "warm",
-//       &AirconModeType::Dry => "dry",
-//       &AirconModeType::Blow => "blow",
-//       &AirconModeType::Auto => "auto",
-//     }
-//   }
-// }
-
-// #[derive(Debug, Serialize, Deserialize)]
-// pub enum TemperatureUnit {
-//   Celcius,
-//   Fahrenheit,
-// }
-
-// impl TemperatureUnit {
-//   pub fn as_str(&self) -> &str {
-//     match self {
-//       &TemperatureUnit::Celcius => "c",
-//       &TemperatureUnit::Fahrenheit => "f",
-//     }
-//   }
-// }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {
@@ -227,4 +172,4 @@ pub struct SignalMessage {
   pub format: String,
 }
 
-pub type RequestBody = HashMap<String, String>;
+pub type RequestBody<'a> = HashMap<&'a str, &'a str>;
