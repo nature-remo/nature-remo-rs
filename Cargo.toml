@@ -3,6 +3,15 @@ name = "remo"
 version = "0.1.0"
 authors = ["Yasuaki Uechi <y@uechi.io>"]
 edition = "2018"
+license-file = "LICENSE"
+description = "Nature Remo API client"
+homepage = "https://github.com/uetchy/nature-remo-rs"
+documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
+repository = "https://github.com/uetchy/nature-remo-rs.git"
+keywords = ["nature remo"]
+exclude = [
+  "/.travis.yml"
+]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
