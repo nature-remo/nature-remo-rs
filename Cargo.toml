@@ -8,7 +8,7 @@ description = "Nature Remo API client"
 homepage = "https://github.com/uetchy/nature-remo-rs"
 documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
 repository = "https://github.com/uetchy/nature-remo-rs.git"
-keywords = ["nature remo"]
+keywords = ["nature-remo", "remo"]
 exclude = [
   "/.travis.yml"
 ]
