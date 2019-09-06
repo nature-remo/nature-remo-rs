@@ -1,7 +1,7 @@
 # Nature Remo for Rust
 
-![Crates.io](https://img.shields.io/crates/v/remo)
-![Travis (.com)](https://img.shields.io/travis/com/uetchy/nature-remo-rs)
+[![Crates.io](https://img.shields.io/crates/v/remo)](https://crates.io/crates/remo)
+[![Travis (.com)](https://img.shields.io/travis/com/uetchy/nature-remo-rs)](https://travis-ci.com/uetchy/nature-remo-rs)
 
 > Nature Remo API client for Rust.
 
