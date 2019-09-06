@@ -1,8 +1,8 @@
-# [WIP] Nature Remo for Rust
+# Nature Remo for Rust
 
-> Nature Remo crate for rust
+> Nature Remo API client for Rust.
 
-This project is in heavily development state and not intended for production use.
+**WARNING: This project is in heavily development state and not intended for production use.**
 
 ## Installation
 
