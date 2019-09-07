@@ -2,14 +2,14 @@ use super::error::APIError;
 use super::Client;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct SensorValue {
   pub temperature: f32,
   pub humidity: f32,
   pub illumination: f32,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Device {
   pub id: String,
   pub name: String,
@@ -20,7 +20,7 @@ pub struct Device {
   pub firmware_version: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct DeviceWithEvents {
   pub id: String,
   pub name: String,
@@ -32,14 +32,14 @@ pub struct DeviceWithEvents {
   pub newest_events: NewestEvents,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct NewestEvents {
   pub te: EventValue,
   pub hu: EventValue,
   pub il: EventValue,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct EventValue {
   pub val: f32,
   pub created_at: String,
@@ -87,6 +87,8 @@ mod tests {
 
     let senval = client.get_sensor_value().unwrap();
     println!("{:?}", senval);
+    assert!(senval.temperature > 0.0);
+    assert!(senval.humidity > 0.0);
+    assert!(senval.illumination > 0.0);
   }
-
 }

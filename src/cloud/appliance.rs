@@ -4,7 +4,7 @@ use super::Client;
 use super::RequestBody;
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Appliance {
   pub id: String,
   pub device: Device,
@@ -17,13 +17,13 @@ pub struct Appliance {
   pub signals: Vec<Signal>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct DetectedAirconModel {
   pub model: Model,
   pub params: AirconSettings,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Model {
   pub id: String,
   pub manufacturer: String,
@@ -32,7 +32,7 @@ pub struct Model {
   pub image: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct AirconSettings {
   pub mode: String,
   pub temp: String,
@@ -41,7 +41,7 @@ pub struct AirconSettings {
   pub button: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct UpdateAirconSettingsResponse {
   pub mode: String,
   pub temp: String,
@@ -51,14 +51,14 @@ pub struct UpdateAirconSettingsResponse {
   pub updated_at: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct AirconModeValue {
   pub temp: Vec<String>,
   pub dir: Vec<String>,
   pub vol: Vec<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct AirconModes {
   pub cool: AirconModeValue,
   pub warm: AirconModeValue,
@@ -66,28 +66,28 @@ pub struct AirconModes {
   pub blow: AirconModeValue,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct AirconRange {
   pub modes: AirconModes,
   #[serde(rename = "fixedButtons")]
   pub fixed_buttons: Vec<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Aircon {
   pub range: AirconRange,
   #[serde(rename = "tempUnit")]
   pub temp_unit: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct Signal {
   pub id: String,
   pub name: String,
   pub image: String,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, PartialEq)]
 pub struct SignalMessage {
   pub data: Vec<i32>,
   pub freq: i32,
@@ -140,10 +140,20 @@ mod tests {
     let appliances = client.get_appliances().unwrap();
     let aircon = appliances.iter().find(|&app| app.r#type == "AC").unwrap();
 
-    let mut body = RequestBody::new();
-    body.insert("button", "power-off");
-    let resp = client.update_aircon_settings(&aircon.id, &body);
-    println!("{:?}", resp);
-  }
+    {
+      let mut body = RequestBody::new();
+      body.insert("operation_mode", "warm");
+      let resp = client.update_aircon_settings(&aircon.id, &body).unwrap();
+      println!("{:?}", resp);
+      assert_eq!(resp.mode, "warm");
+    }
 
+    {
+      let mut body = RequestBody::new();
+      body.insert("operation_mode", "cool");
+      let resp = client.update_aircon_settings(&aircon.id, &body).unwrap();
+      println!("{:?}", resp);
+      assert_eq!(resp.mode, "cool");
+    }
+  }
 }

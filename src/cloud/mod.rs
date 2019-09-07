@@ -8,11 +8,14 @@ mod device;
 mod error;
 mod user;
 
+pub use appliance::*;
+pub use device::*;
 pub use error::APIError;
 use reqwest::ClientBuilder;
 use serde::de::DeserializeOwned;
 use std::collections::HashMap;
 use url::Url;
+pub use user::*;
 
 pub type RequestBody<'a> = HashMap<&'a str, &'a str>;
 
@@ -30,6 +33,9 @@ impl Client {
       client: ClientBuilder::new().build().unwrap(),
     }
   }
+}
+
+impl Client {
   fn get<T>(&self, path: &str) -> Result<T, APIError>
   where
     T: DeserializeOwned,
