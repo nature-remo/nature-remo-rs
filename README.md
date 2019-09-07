@@ -20,10 +20,29 @@ cargo add remo
 extern crate remo;
 
 use remo::cloud;
+use std::env;
 
 fn main() {
-  let client = cloud::Client::new("<token>");
-  let user = client.get_user()?
-  println!("Name: {}", user.nickname)
+  let token = env::var("NATURE_REMO_CLOUD_API_TOKEN");
+
+  let client = cloud::Client::new(token);
+
+  // get user's nickname
+  let user = client.get_user().unwrap();
+  println!("Name: {}", user.nickname);
+
+  // get room temperature
+  let sensor_value = client.get_sensor_value().unwrap();
+  println!("Temperature: {}", sensor_value.temperature);
+
+  // update aircon settings
+  let appliances = client.get_appliances().unwrap();
+  let aircon = appliances.iter().find(|&app| app.r#type == "AC").unwrap();
+
+  let mut params = cloud::RequestBody::new();
+  params.insert("operation_mode", "warm");
+  params.insert("temperature", "26");
+  client.update_aircon_settings(&aircon.id, &params);
+  println!("Aircon settings updated: mode(warm), temperature(26)");
 }
 ```
