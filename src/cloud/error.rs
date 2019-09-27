@@ -1,4 +1,3 @@
-extern crate failure;
 use failure::Fail;
 
 #[derive(Debug, Fail)]

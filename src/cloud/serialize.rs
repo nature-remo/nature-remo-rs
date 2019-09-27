@@ -1,6 +1,3 @@
-extern crate serde;
-extern crate serde_json;
-
 #[allow(dead_code)]
 mod optional_string {
   use serde::de;
