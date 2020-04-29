@@ -46,3 +46,7 @@ fn main() {
   println!("Aircon settings updated: mode(warm), temperature(26)");
 }
 ```
+
+## Related Projects
+
+### [Nature Remo for JavaScript](https://github.com/uetchy/nature-remo)
