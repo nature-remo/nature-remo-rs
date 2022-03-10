@@ -1,0 +1,24 @@
+[package]
+name = "remo-tui"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Nature Remo TUI"
+homepage = "https://github.com/uetchy/nature-remo-rs"
+documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
+repository = "https://github.com/uetchy/nature-remo-rs"
+readme = "README.md"
+keywords = ["nature-remo", "remo"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.53"
+chrono = "0.4.19"
+crossterm = "0.23.0"
+rand = "0.8.4"
+remo = { version = "0.1.2", path = "../remo" }
+reqwest = { version = "0.11.9", features = ["blocking", "gzip", "socks"] }
+thiserror = "1.0.30"
+tokio = "1.16.1"
+tui = "0.17.0"

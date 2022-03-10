@@ -1,0 +1,21 @@
+[package]
+name = "remo"
+version = "0.1.2"
+authors = ["Yasuaki Uechi <y@uechi.io>"]
+edition = "2021"
+license = "MIT"
+description = "Nature Remo API client"
+homepage = "https://github.com/uetchy/nature-remo-rs"
+documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
+repository = "https://github.com/uetchy/nature-remo-rs"
+readme = "README.md"
+keywords = ["nature-remo", "remo"]
+exclude = ["/.travis.yml"]
+
+[dependencies]
+reqwest = { version = "0.11.9", features = ["blocking", "json"] }
+url = "2.1.1"
+serde = { version = "1.0.136", features = ["derive"] }
+serde_json = "1.0.78"
+failure = "0.1.8"
+tokio = { version = "1.16.1", features = ["macros"] }

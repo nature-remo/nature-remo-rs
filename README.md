@@ -1,4 +1,6 @@
-# Nature Remo for Rust
+# Nature Remo crate & TUI
+
+## `remo`
 
 [![Crates.io](https://img.shields.io/crates/v/remo)](https://crates.io/crates/remo)
 [![Docs.rs](https://docs.rs/remo/badge.svg)](https://docs.rs/remo)
@@ -6,15 +8,15 @@
 
 > Nature Remo API client for Rust.
 
-**WARNING: This project is in heavily development state and not intended for production use.**
+**WARNING: This project is under development and not intended for production use.**
 
-## Installation
+### Installation
 
 ```
 cargo add remo
 ```
 
-## Usage
+### Usage
 
 ```rust
 extern crate remo;
@@ -47,6 +49,10 @@ fn main() {
 }
 ```
 
-## Related Projects
+### Related Projects
 
-### [Nature Remo for JavaScript](https://github.com/uetchy/nature-remo)
+- [Nature Remo for JavaScript](https://github.com/uetchy/nature-remo)
+
+## `remo-tui`
+
+> A Nature Remo TUI written in Rust

@@ -1,24 +1,2 @@
-[package]
-name = "remo"
-version = "0.1.2"
-authors = ["Yasuaki Uechi <y@uechi.io>"]
-edition = "2018"
-license = "MIT"
-description = "Nature Remo API client"
-homepage = "https://github.com/uetchy/nature-remo-rs"
-documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
-repository = "https://github.com/uetchy/nature-remo-rs"
-readme = "README.md"
-keywords = ["nature-remo", "remo"]
-exclude = [
-  "/.travis.yml"
-]
-
-[dependencies]
-reqwest = "0.9.20"
-url = "2.1.0"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.40"
-failure = "0.1.5"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = ["crates/remo", "crates/remo-tui"]
