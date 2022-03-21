@@ -51,7 +51,7 @@ fn main() {
 
 ### Related Projects
 
-- [Nature Remo for JavaScript](https://github.com/uetchy/nature-remo)
+- [Nature Remo for JavaScript](https://github.com/nature-remo/nature-remo)
 
 ## `remo-tui`
 

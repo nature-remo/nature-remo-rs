@@ -4,9 +4,9 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 description = "Nature Remo TUI"
-homepage = "https://github.com/uetchy/nature-remo-rs"
-documentation = "https://github.com/uetchy/nature-remo-rs/blob/master/README.md"
-repository = "https://github.com/uetchy/nature-remo-rs"
+homepage = "https://github.com/nature-remo/nature-remo-rs"
+documentation = "https://github.com/nature-remo/nature-remo-rs/blob/master/README.md"
+repository = "https://github.com/nature-remo/nature-remo-rs"
 readme = "README.md"
 keywords = ["nature-remo", "remo"]
 
